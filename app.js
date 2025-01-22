@@ -22,7 +22,10 @@ const PORT = 4000;
 
 // Define routes
 app.get('/', (req, res) => {
-  res.render('index'); // Render 'index.ejs' template
+  res.render('index', {
+    title: 'Background Maker',
+    body: ' '
+  }); // Render 'index.ejs' template
 });
 
 

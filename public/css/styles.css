@@ -1,0 +1,168 @@
+/* Body Styling */
+body {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;  /* Centers horizontally */
+  align-items: center;      /* Centers vertically */
+  height: 100vh;
+  flex-direction: column;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 30px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Card Styling */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Hover effect for the card */
+}
+
+.card-header {
+  background-color: #007bff;
+  color: white;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  text-align: center;
+  padding: 20px;
+  font-weight: 700;
+  font-size: 1.4rem;
+  box-sizing: border-box;
+}
+
+/* Card Body */
+.card-body {
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+/* Canvas Container */
+.canvas-container {
+  margin-top: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Pattern Canvas */
+#patternCanvas {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #ddd; /* Subtle border for the canvas */
+}
+
+/* Form Inputs */
+.form-control,
+.form-select,
+.form-range {
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  margin-bottom: 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-range:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Buttons */
+button {
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 15px 25px;
+  width: 100%;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Buttons Colors */
+#generatePattern {
+  background-color: #28a745;
+  color: white;
+}
+
+#generatePattern:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+#savePattern {
+  background-color: #007bff;
+  color: white;
+}
+
+#savePattern:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Layout */
+.row {
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+  body {
+    padding-top: 20px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .col-md-4, .col-md-8 {
+    width: 100%;
+  }
+
+  .card-header {
+    font-size: 1.2rem;
+    padding: 15px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+
+  #patternCanvas {
+    max-width: 100%;
+  }
+}

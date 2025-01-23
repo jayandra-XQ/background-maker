@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title || 'Background Maker' %></title>
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="/css/styles.css">
+   <!--  jQuery script -->
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <!-- Header (Common for all pages) -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Background Maker</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content (Common for all pages) -->
+  <main>
+    <%- body %>  
+  </main>
+
+  <!-- Footer (Common for all pages) -->
+  <footer class="text-center py-4">
+    <p>&copy; 2025 Background Maker</p>
+  </footer>
+
+  <!-- Global Script -->
+  <script src="/js/script.js"></script>
+ 
+</body>
+</html>

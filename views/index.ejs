@@ -1,0 +1,59 @@
+<%- include('layouts/main') %> <!--main layout -->
+
+<!-- Page-specific content -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>Controls</h5>
+        </div>
+        <div class="card-body">
+
+          <!-- Pattern Type -->
+          <div class="mb-3">
+            <label for="patternType" class="form-label">Select Pattern</label>
+            <select id="patternType" class="form-select">
+              <option value="spiral">Spiral</option>
+              <option value="grid">Grid</option>
+              <option value="fractal">Fractal</option>
+            </select>
+          </div>
+
+          <!-- Color Picker -->
+          <div class="mb-3">
+            <label for="colorPicker" class="form-label">Choose Primary Color</label>
+            <input type="color" id="colorPicker" class="form-control form-control-color">
+          </div>
+
+          <!-- Density Slider -->
+          <div class="mb-3">
+            <label for="densitySlider" class="form-label">Adjust Density</label>
+            <input type="range" id="densitySlider" class="form-range" min="10" max="100" step="10" value="50">
+          </div>
+
+          <!-- Size Slider -->
+          <div class="mb-3">
+            <label for="sizeSlider" class="form-label">Adjust Size</label>
+            <input type="range" id="sizeSlider" class="form-range" min="10" max="500" step="10" value="100">
+          </div>
+
+          <!-- Buttons -->
+          <div class="d-grid gap-2">
+            <button id="generatePattern" class="btn btn-success">Generate Pattern</button>
+            <button id="savePattern" class="btn btn-primary">Save Pattern</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Canvas: Pattern Display -->
+    <div class="col-md-8 col-sm-12 mt-4">
+      <div class="canvas-container text-center">
+        <canvas id="patternCanvas" width="800" height="600" class="border"></canvas>
+      </div>
+    </div>
+    
+  </div>
+</div>

@@ -1,5 +1,9 @@
 $(document).ready(() => {
-  const canvas = document.getElementById('patternCanvas');
+  const canvas = document.getElementById('#patternCanvas');
+  if (!canvas) {
+    console.error('Canvas element with ID "patternCanvas" is missing.');
+    return;
+  }
   canvas.width = 800;
   canvas.height = 600;
 

@@ -7,6 +7,7 @@ import session from 'express-session';
 import bodyParser from 'body-parser';
 import { dirname } from 'path';
 
+
 import authRoutes from './routes/auth.js'
 import patternRoutes from './routes/pattern.js'
 
@@ -14,21 +15,17 @@ import { connectDB } from './lib/db.js';
 
 
 const app = express();
+const PORT = process.env.PORT || 4000;
 
 // Get the current directory path
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
-
-//initialize the app
-app.use(express.json())
 
 
-//set the view engine to ejs
-app.set('view engine', 'ejs');
 
 // express session
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json())
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -36,14 +33,19 @@ app.use(session({
   cookie: { secure: false },
 }));
 
-app.use('/', authRoutes);
-app.use('/pattern', patternRoutes)
+//set the view engine to ejs
+app.set('view engine', 'ejs');
+
+
+
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 
 // Serve static files (CSS, JS, images, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const PORT = process.env.PORT || 4000;
+app.use('/', authRoutes);
+app.use('/pattern', patternRoutes)
 
 
 // Middleware to protect routes

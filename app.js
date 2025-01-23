@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url'
 import session from 'express-session';
 import bodyParser from 'body-parser';
+import { dirname } from 'path';
 
 import authRoutes from './routes/auth.js'
 import patternRoutes from './routes/pattern.js'
@@ -12,12 +13,14 @@ import patternRoutes from './routes/pattern.js'
 import { connectDB } from './lib/db.js';
 
 
+const app = express();
+
 // Get the current directory path
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 
 //initialize the app
-const app = express();
 app.use(express.json())
 
 
@@ -38,8 +41,7 @@ app.use('/pattern', patternRoutes)
 
 // Serve static files (CSS, JS, images, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/uploads', express.static('public/uploads'));
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const PORT = process.env.PORT || 4000;
 
@@ -53,16 +55,17 @@ function requireAuth(req, res, next) {
   }
 }
 
-app.get('/', requireAuth, (req, res) => { // Protected root route
-  res.render('index',
-    {
+app.get('/', requireAuth, (req, res) => {
+  if (req.session.user) {
+    res.render('index', {
       title: 'Background Maker',
       body: ' ',
       user: req.session.user
     });
+  } else {
+    res.redirect('/login');  // Redirect to login if not authenticated
+  }
 });
-
-
 
 // Start the server on port 4000
 app.listen(PORT, () => {

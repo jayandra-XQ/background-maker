@@ -54,6 +54,17 @@
         <canvas id="patternCanvas" width="800" height="600" class="border"></canvas>
       </div>
     </div>
+
+    <div id="feedback" class="text-center text-success mt-3 d-none"></div>
+
+
+    <!-- Display the saved pattern after it's generated -->
+    <div class="col-md-8 col-sm-12 mt-4">
+      <div class="text-center">
+        <h5>Saved Pattern</h5>
+        <img id="savedPattern" src="" alt="Saved Pattern" class="img-fluid border" />
+      </div>
+    </div>
     
   </div>
 </div>
@@ -64,3 +75,6 @@
 <% } else { %>
   <p>Please <a href="/login">login</a> or <a href="/register">register</a> to use the Background Maker.</p>
 <% } %>
+
+
+

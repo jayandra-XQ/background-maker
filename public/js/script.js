@@ -30,28 +30,12 @@ $(document).ready(() => {
 
   $('#savePattern').click(() => {
     const dataUrl = canvas.toDataURL('image/png'); // Get canvas as base64 image
-    const patternData = {
-      image: dataUrl, // Send the base64 string to the backend
-      patternType: $('#patternType').val(),
-      primaryColor: $('#colorPicker').val(),
-      density: parseInt($('#densitySlider').val()),
-      size: parseInt($('#sizeSlider').val()),
-    };
-
-    // POST request to save the pattern to the backend
-    $.ajax({
-      url: '/patterns/save', // Update this to match your backend route
-      type: 'POST',
-      data: JSON.stringify(patternData),
-      contentType: 'application/json',
-      success: (response) => {
-        alert('Pattern saved successfully!');
-      },
-      error: (err) => {
-        console.error('Error saving pattern:', err);
-        alert('Failed to save the pattern.');
-      },
-    });
+    const a = document.createElement('a'); // Create a download link element
+    a.href = dataUrl; // Set the href to the generated image URL
+    a.download = 'background-pattern.png'; // Set the file name to download
+    document.body.appendChild(a); // Append link to body (required for some browsers)
+    a.click(); // Programmatically click the link to trigger the download
+    document.body.removeChild(a); // Remove the link after download trigger
   });
 
   function generateSpiral(ctx, canvas, color, density, size) {

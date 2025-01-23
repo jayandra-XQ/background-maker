@@ -7,7 +7,7 @@ const PatternSchema = new mongoose.Schema({
   primaryColor: { type: String, required: true },
   density: { type: Number, required: true },
   size: { type: Number, required: true },
-})
+}, { timestamps: true })
 
 const Pattern = mongoose.model('Pattern', PatternSchema);
 

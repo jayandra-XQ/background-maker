@@ -1,11 +1,9 @@
 $(document).ready(() => {
-  // Set canvas size
   const canvas = document.getElementById('patternCanvas');
-  canvas.width = 800;  // Set canvas width (adjust as needed)
-  canvas.height = 600; // Set canvas height (adjust as needed)
+  canvas.width = 800;
+  canvas.height = 600;
 
   $('#generatePattern').click(() => {
-    const canvas = document.getElementById('patternCanvas');
     const ctx = canvas.getContext('2d');
     const patternType = $('#patternType').val();
     const primaryColor = $('#colorPicker').val();
@@ -26,12 +24,36 @@ $(document).ready(() => {
       generateGrid(ctx, canvas, primaryColor, density, size);
     } else if (patternType === 'fractal') {
       alert('Fractal pattern generation coming soon!');
-      // Optionally, disable the fractal option until it's ready
       $('#patternType').val('spiral'); // Reset to default pattern
     }
   });
 
-  // Function to generate spiral pattern
+  $('#savePattern').click(() => {
+    const dataUrl = canvas.toDataURL('image/png'); // Get canvas as base64 image
+    const patternData = {
+      image: dataUrl, // Send the base64 string to the backend
+      patternType: $('#patternType').val(),
+      primaryColor: $('#colorPicker').val(),
+      density: parseInt($('#densitySlider').val()),
+      size: parseInt($('#sizeSlider').val()),
+    };
+
+    // POST request to save the pattern to the backend
+    $.ajax({
+      url: '/patterns/save', // Update this to match your backend route
+      type: 'POST',
+      data: JSON.stringify(patternData),
+      contentType: 'application/json',
+      success: (response) => {
+        alert('Pattern saved successfully!');
+      },
+      error: (err) => {
+        console.error('Error saving pattern:', err);
+        alert('Failed to save the pattern.');
+      },
+    });
+  });
+
   function generateSpiral(ctx, canvas, color, density, size) {
     let centerX = canvas.width / 2;
     let centerY = canvas.height / 2;
@@ -43,7 +65,7 @@ $(document).ready(() => {
       const y = centerY + radius * Math.sin(angle);
 
       ctx.beginPath();
-      ctx.arc(x, y, 3, 0, 2 * Math.PI);  // Draw small circle
+      ctx.arc(x, y, 3, 0, 2 * Math.PI);
       ctx.fillStyle = color;
       ctx.fill();
 
@@ -52,7 +74,6 @@ $(document).ready(() => {
     }
   }
 
-  // Function to generate grid pattern
   function generateGrid(ctx, canvas, color, density, size) {
     const step = size;
     ctx.strokeStyle = color;
@@ -63,13 +84,4 @@ $(document).ready(() => {
       }
     }
   }
-
-  // Save the generated pattern as an image
-  $('#savePattern').click(() => {
-    const dataUrl = canvas.toDataURL(); // Get canvas as data URL
-    const a = document.createElement('a');
-    a.href = dataUrl;
-    a.download = 'generated-pattern.png';  // File name for download
-    a.click();
-  });
 });

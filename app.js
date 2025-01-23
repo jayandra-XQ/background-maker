@@ -7,6 +7,7 @@ import session from 'express-session';
 import bodyParser from 'body-parser';
 
 import authRoutes from './routes/auth.js'
+import patternRoutes from './routes/pattern.js'
 
 import { connectDB } from './lib/db.js';
 
@@ -33,9 +34,12 @@ app.use(session({
 }));
 
 app.use('/', authRoutes);
+app.use('/pattern', patternRoutes)
 
 // Serve static files (CSS, JS, images, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static('public/uploads'));
+
 
 const PORT = process.env.PORT || 4000;
 

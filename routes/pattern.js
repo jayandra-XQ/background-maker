@@ -1,5 +1,6 @@
 import express from 'express';
 import Pattern from '../models/pattern.js'
+import fs from 'fs'
 
 const router = express.Router();
 
@@ -9,6 +10,12 @@ router.post('/generate-pattern', requireAuth, async (req, res) => {
   try {
     const { patternType, primaryColor, density, size, image } = req.body;
 
+    // Decode base64 image and save it as a file
+    const base64Data = image.replace(/^data:image\/png;base64,/, '');
+    const filePath = `public/uploads/${Date.now()}-pattern.png`;
+
+    fs.writeFileSync(filePath, base64Data, 'base64');
+
     //save the pattern to the database
     const newPattern = new Pattern({
       user: req.session.user._id,
@@ -16,7 +23,7 @@ router.post('/generate-pattern', requireAuth, async (req, res) => {
       primaryColor,
       density,
       size,
-      image
+      image: filePath,
     });
     await newPattern.save();
     res.status(201).json({ message: 'Pattern saved successfully', pattern: newPattern })

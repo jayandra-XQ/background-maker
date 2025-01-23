@@ -57,3 +57,10 @@
     
   </div>
 </div>
+
+<% if (user) { %>
+  <p>Welcome, <%= user.name %>!</p>
+  <a href="/logout" class="btn btn-danger">Logout</a> 
+<% } else { %>
+  <p>Please <a href="/login">login</a> or <a href="/register">register</a> to use the Background Maker.</p>
+<% } %>

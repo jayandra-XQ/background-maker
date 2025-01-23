@@ -3,10 +3,11 @@ import User from '../models/user.js'
 
 
 
+
 const router = express.Router();
 
 router.get('/register', (req, res) => {
-  res.render('register')
+  res.render('register', { title: 'Register', body: '' });
 })
 
 
@@ -30,7 +31,7 @@ router.post('/register', async (req, res) => {
 })
 
 router.get('/login', (req, res) => {
-  res.render('login')
+  res.render('login', { title: 'login', body: '' })
 });
 
 // route for login
@@ -42,7 +43,7 @@ router.post('/login', async (req, res) => {
 
     if (user) {
       req.session.user = user
-      res.redirect('/protected')
+      res.redirect('/')
     } else {
       res.send('Invalid credentials')
     }

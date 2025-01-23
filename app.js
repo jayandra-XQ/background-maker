@@ -39,22 +39,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const PORT = process.env.PORT || 4000;
 
-// Define routes
-app.get('/', (req, res) => {
-  res.render('index', {
-    title: 'Background Maker',
-    body: ' '
-  }); // Render 'index.ejs' template
-});
 
-
-app.get('/protected', (req, res) => {
+// Middleware to protect routes
+function requireAuth(req, res, next) {
   if (req.session.user) {
-    res.send(`Welcome, ${req.session.user.username}! This is protected content.`);
+    next();
   } else {
     res.redirect('/login');
   }
+}
+
+app.get('/', requireAuth, (req, res) => { // Protected root route
+  res.render('index',
+    {
+      title: 'Background Maker',
+      body: ' ',
+      user: req.session.user
+    });
 });
+
+
 
 // Start the server on port 4000
 app.listen(PORT, () => {
